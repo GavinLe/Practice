@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Vue hello databinding</title>
+</head>
+<body>
+	<div id="app">
+		<h3>########Practice One#######</h3>
+		<p>
+			{{message}}
+		</p>
+		<input v-model="message"/>
+		
+		<button v-on:click="reverseMessage">reverseMessage</button>
+		
+		<h3>########Practice Two#######</h3>
+		<input v-model="newAdd" v-on:keyup.enter="addTodo"/>
+		<ul>
+			<li v-for="todo in todos">
+				<span>{{todo.text}} - {{$index}}</span>
+				<button v-on:click="removeTodo($index)">X</button>
+			</li>
+		</ul>
+		
+		<h3>########Practice Three com#######</h3>
+	</div>
+	
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>	
+	
+	<script>
+		new Vue({
+			el: "#app",
+			data: {
+				newAdd: "",
+				message: "hello world", 
+				todos: [{"text":"text1"},{"text":"text2"},{"text":"text3"}]},
+				methods: {
+					reverseMessage: function(){
+						this.message = this.message.split('').reverse().join('')
+					},
+					addTodo: function(){
+						var text = this.newAdd.trim()
+						if (text){
+							this.todos.push({"text": text});
+							this.newAdd = '';
+						}
+					},
+					removeTodo: function(index){
+						console.log(index);
+						this.todos.splice(index,1);
+					}
+				}
+		})
+	</script>
+	
+</body>
+</html>
